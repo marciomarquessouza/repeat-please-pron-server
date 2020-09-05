@@ -49,3 +49,7 @@ $ npm run test:cov
 
 - [Nest](https://docs.nestjs.com/) - Nest (NestJS) is a framework for building efficient, scalable Node.js server-side applications.
 - [TypeORM](https://typeorm.io/) - TypeORM is an ORM (Object-relational mapping) that can run in NodeJS.
+
+## ✍️ Authors <a name = "authors"></a>
+
+- [@marciomarquessouza](https://github.com/marciomarquessouza)
