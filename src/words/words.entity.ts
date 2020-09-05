@@ -22,7 +22,4 @@ export class Word extends BaseEntity {
 
   @Column()
   trail: number;
-
-  @Column()
-  week: number;
 }
