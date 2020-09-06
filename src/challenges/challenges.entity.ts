@@ -1,7 +1,14 @@
-import { Column, BaseEntity, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  BaseEntity,
+  PrimaryGeneratedColumn,
+  Column,
+  Unique,
+} from 'typeorm';
 
 @Entity()
-export class Word extends BaseEntity {
+@Unique(['text'])
+export class Challenge extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 

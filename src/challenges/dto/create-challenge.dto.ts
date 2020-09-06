@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsOptional } from 'class-validator';
 
-export class CreateWordsDto {
+export class CreateChallenteDto {
   @IsNotEmpty()
   text: string;
 
@@ -18,7 +18,4 @@ export class CreateWordsDto {
 
   @IsOptional()
   trail?: number;
-
-  @IsOptional()
-  week?: number;
 }

@@ -1,12 +1,11 @@
 import { IsOptional } from 'class-validator';
-import { TreeLevelColumn } from 'typeorm';
 
-export class FilterWordsDto {
+export class FilterChallengesDto {
   @IsOptional()
   search: string;
 
   @IsOptional()
-  total: number;
+  limit: number;
 
   @IsOptional()
   level: number;
