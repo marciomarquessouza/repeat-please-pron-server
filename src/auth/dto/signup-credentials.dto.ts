@@ -8,7 +8,7 @@ import {
 } from 'class-validator';
 import { UserGroup } from '../user-group.enum';
 
-export class CredentialsDto {
+export class SignUpCredentialsDto {
   @IsNotEmpty()
   @IsString()
   @IsEmail()

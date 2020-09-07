@@ -31,6 +31,6 @@ export class User extends BaseEntity {
 
   async validatePassword(password: string): Promise<boolean> {
     const hash = await bcrypt.hash(password, this.salt);
-    return hash === password;
+    return hash === this.password;
   }
 }
