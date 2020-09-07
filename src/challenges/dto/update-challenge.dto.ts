@@ -3,20 +3,20 @@ import { IsOptional } from 'class-validator';
 
 export class UpdateChallengeDto {
   @IsOptional()
-  text: string;
+  text?: string;
 
   @IsOptional()
-  phonetic: string;
+  phonetic?: string;
 
   @IsOptional()
-  ipa: string;
+  ipa?: string;
 
   @IsOptional()
-  enphasized: string;
+  enphasized?: string;
 
   @IsOptional()
-  level: number;
+  level?: number;
 
   @IsOptional()
-  trail: number;
+  trail?: number;
 }

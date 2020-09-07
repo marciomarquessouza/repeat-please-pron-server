@@ -8,7 +8,7 @@ export class AppController {
 
   @Get()
   @UseGuards(AuthGuard())
-  getHello(): string {
-    return this.appService.getHello();
+  getWelcome(): string {
+    return this.appService.getWelcome();
   }
 }

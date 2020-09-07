@@ -6,6 +6,7 @@ import {
   ConflictException,
   InternalServerErrorException,
   BadRequestException,
+  NotFoundException,
 } from '@nestjs/common';
 import { SignInCredentialsDto } from './dto/signin-credentials.dto';
 
@@ -44,7 +45,7 @@ export class UserRepository extends Repository<User> {
     try {
       const user = await this.findOne({ where: { email } });
       if (!user) {
-        throw new BadRequestException(`User "${email}" not found`);
+        throw new NotFoundException(`User "${email}" not found`);
       }
       const isPaswordValid = await user.validatePassword(password);
 

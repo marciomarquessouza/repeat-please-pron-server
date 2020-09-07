@@ -2,14 +2,14 @@ import { IsOptional } from 'class-validator';
 
 export class FilterChallengesDto {
   @IsOptional()
-  search: string;
+  search?: string;
 
   @IsOptional()
-  limit: number;
+  limit?: number;
 
   @IsOptional()
-  level: number;
+  level?: number;
 
   @IsOptional()
-  trail: number;
+  trail?: number;
 }

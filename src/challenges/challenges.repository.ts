@@ -5,6 +5,7 @@ import {
   InternalServerErrorException,
   BadRequestException,
   ConflictException,
+  NotFoundException,
 } from '@nestjs/common';
 import { CreateChallenteDto } from './dto/create-challenge.dto';
 import { FilterChallengesDto } from './dto/filter-challenges.dto';
@@ -26,7 +27,7 @@ export class ChallengesRepository extends Repository<Challenge> {
       ipa,
     } = createChallengeDto;
 
-    const challenge = new Challenge();
+    const challenge = this.create();
     challenge.text = text;
     challenge.phonetic = phonetic;
     challenge.ipa = ipa;
@@ -39,16 +40,8 @@ export class ChallengesRepository extends Repository<Challenge> {
       return challenge;
     } catch (error) {
       if (error.code === '23505') {
-        this.logger.error(
-          `This text already exists. Text: ${text}. Error: ${error.message}`,
-        );
         throw new ConflictException(`This text (${text}) already exists`);
       }
-      this.logger.error(
-        `Error to create a new challenge. Data: ${JSON.stringify(
-          createChallengeDto,
-        )}. Error: ${error.code}`,
-      );
       throw new InternalServerErrorException();
     }
   }
@@ -83,11 +76,7 @@ export class ChallengesRepository extends Repository<Challenge> {
     try {
       return await query.getMany();
     } catch (error) {
-      throw new BadRequestException(
-        `Some parameter or data was not properly sent. Filter: ${JSON.stringify(
-          filterChallengesDto,
-        )}`,
-      );
+      throw new InternalServerErrorException(`Occurred an unexpect error`);
     }
   }
 
@@ -97,7 +86,7 @@ export class ChallengesRepository extends Repository<Challenge> {
   ): Promise<Challenge> {
     const challenge = await this.findOne(id);
     if (!challenge) {
-      throw new BadRequestException(`Challenge with id ${id} doesn't exists`);
+      throw new NotFoundException(`Challenge with id ${id} doesn't exists`);
     }
     Object.keys(updateChallengeDto).map(key => {
       if (updateChallengeDto[key]) {

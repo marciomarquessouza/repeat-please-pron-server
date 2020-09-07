@@ -2,6 +2,7 @@ import {
   Injectable,
   BadRequestException,
   InternalServerErrorException,
+  NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ChallengesRepository } from './challenges.repository';
@@ -30,9 +31,9 @@ export class ChallengesService {
   }
 
   async getChallengeById(id: number): Promise<Challenge> {
-    const challenge = await this.challengeRepository.findOne({ where: { id } });
+    const challenge = await this.challengeRepository.findOne({ id });
     if (!challenge) {
-      throw new BadRequestException(`Challenge with id: ${id} doesn't exists`);
+      throw new NotFoundException(`Challenge with id: ${id} doesn't exists`);
     }
     return challenge;
   }
@@ -48,8 +49,8 @@ export class ChallengesService {
   }
 
   async removeChallenge(id: number): Promise<void> {
+    const challenge = await this.getChallengeById(id);
     try {
-      const challenge = await this.getChallengeById(id);
       await this.challengeRepository.remove(challenge);
     } catch (error) {
       throw new InternalServerErrorException(
