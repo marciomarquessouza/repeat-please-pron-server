@@ -21,7 +21,7 @@ import { UpdateChallengeDto } from './dto/update-challenge.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from '../auth/decorators';
 import { User } from '../auth/user.entity';
-import { UserGroup } from 'src/auth/user-group.enum';
+import { UserGroup } from '../auth/user-group.enum';
 
 @Controller('challenges')
 @UseGuards(AuthGuard())
