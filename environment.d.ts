@@ -7,6 +7,7 @@ declare global {
       RDS_USERNAME: string;
       RDS_PASSWORD: string;
       RDS_DB_NAME: string;
+      JWT_SECRET: string;
     }
   }
 }

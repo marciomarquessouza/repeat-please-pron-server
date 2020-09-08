@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from './user.repository';
 import { SignUpCredentialsDto } from './dto/signup-credentials.dto';
 import { SignInCredentialsDto } from './dto/signin-credentials.dto';
-import { User } from './user.entity';
 import { ISignInPayload } from './interfaces';
 import { JwtService } from '@nestjs/jwt';
 
