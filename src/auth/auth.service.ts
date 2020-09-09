@@ -13,8 +13,10 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signUp(credentialsDto: SignUpCredentialsDto): Promise<{ id: number }> {
-    return await this.userRepository.signUp(credentialsDto);
+  async signUp(
+    signUpCredentialsDto: SignUpCredentialsDto,
+  ): Promise<{ id: number }> {
+    return await this.userRepository.signUp(signUpCredentialsDto);
   }
 
   async signIn(

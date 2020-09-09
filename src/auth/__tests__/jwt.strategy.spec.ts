@@ -1,7 +1,6 @@
 import { JwtStrategy } from '../jwt.strategy';
 import { TestingModule, Test } from '@nestjs/testing';
 import { UserRepository } from '../user.repository';
-import { ISignInPayload } from '../interfaces';
 import { User } from '../user.entity';
 import { UnauthorizedException } from '@nestjs/common';
 
@@ -14,15 +13,15 @@ describe('JwtStrategy', () => {
   let userRepository: UserRepository;
 
   beforeEach(async () => {
-    const module = await Test.createTestingModule({
+    const module: TestingModule = await Test.createTestingModule({
       providers: [
         JwtStrategy,
         { provide: UserRepository, useFactory: mockUserRepository },
       ],
     }).compile();
 
-    jwtStrategy = await module.get<JwtStrategy>(JwtStrategy);
-    userRepository = await module.get<UserRepository>(UserRepository);
+    jwtStrategy = module.get<JwtStrategy>(JwtStrategy);
+    userRepository = module.get<UserRepository>(UserRepository);
   });
 
   describe('#validate', () => {

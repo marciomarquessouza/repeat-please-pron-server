@@ -26,8 +26,8 @@ describe('#ChallengesService', () => {
       ],
     }).compile();
 
-    service = await module.get<ChallengesService>(ChallengesService);
-    repository = await module.get<ChallengesRepository>(ChallengesRepository);
+    service = module.get<ChallengesService>(ChallengesService);
+    repository = module.get<ChallengesRepository>(ChallengesRepository);
   });
 
   describe('#getChallenges - when get all challenges', () => {

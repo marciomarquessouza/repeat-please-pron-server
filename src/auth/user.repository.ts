@@ -5,10 +5,10 @@ import { SignUpCredentialsDto } from './dto/signup-credentials.dto';
 import {
   ConflictException,
   InternalServerErrorException,
-  BadRequestException,
   NotFoundException,
 } from '@nestjs/common';
 import { SignInCredentialsDto } from './dto/signin-credentials.dto';
+import { UserGroup } from './user-group.enum';
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
@@ -16,11 +16,13 @@ export class UserRepository extends Repository<User> {
     return bcrypt.hash(password, salt);
   }
 
-  async signUp(credentialsDto: SignUpCredentialsDto): Promise<{ id: number }> {
-    const { email, password, group, name } = credentialsDto;
-    const user = new User();
+  async signUp(
+    signUpCredentialsDto: SignUpCredentialsDto,
+  ): Promise<{ id: number }> {
+    const { email, password, name } = signUpCredentialsDto;
+    const user = this.create();
     user.email = email;
-    user.group = group;
+    user.group = UserGroup.FREE_USER;
     user.name = name || '';
     user.salt = await bcrypt.genSalt();
     user.password = await this.hashPassword(password, user.salt);
@@ -42,11 +44,11 @@ export class UserRepository extends Repository<User> {
     signInCredentialsDto: SignInCredentialsDto,
   ): Promise<string> {
     const { email, password } = signInCredentialsDto;
+    const user = await this.findOne({ where: { email } });
+    if (!user) {
+      throw new NotFoundException(`User "${email}" not found`);
+    }
     try {
-      const user = await this.findOne({ where: { email } });
-      if (!user) {
-        throw new NotFoundException(`User "${email}" not found`);
-      }
       const isPaswordValid = await user.validatePassword(password);
 
       return isPaswordValid ? user.email : null;

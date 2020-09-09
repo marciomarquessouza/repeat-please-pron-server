@@ -11,7 +11,6 @@ import { UpdateChallengeDto } from '../dto/update-challenge.dto';
 describe('ChallengesController', () => {
   let controller: ChallengesController;
   let service: ChallengesService;
-  let repository: ChallengesRepository;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -22,9 +21,8 @@ describe('ChallengesController', () => {
       ],
     }).compile();
 
-    controller = await module.get<ChallengesController>(ChallengesController);
-    service = await module.get<ChallengesService>(ChallengesService);
-    repository = await module.get<ChallengesRepository>(ChallengesRepository);
+    controller = module.get<ChallengesController>(ChallengesController);
+    service = module.get<ChallengesService>(ChallengesService);
   });
 
   describe('#ChallengesController', () => {

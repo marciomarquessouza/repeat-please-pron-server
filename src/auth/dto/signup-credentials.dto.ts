@@ -21,7 +21,4 @@ export class SignUpCredentialsDto {
   @IsOptional()
   @IsString()
   name?: string;
-
-  @IsIn([UserGroup.ADMIN, UserGroup.FREE_USER])
-  group: UserGroup;
 }
